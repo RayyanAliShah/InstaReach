@@ -116,7 +116,7 @@
         }
 
         .gradient-bg {
-            background: linear-gradient(-45deg, #b8592d, hsl(23, 75%, 35%), #DC652D, #ff6b35);
+             background: linear-gradient(-45deg, #DC652D, #ff8c42, #DC652D, #ff6b35);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
         }
@@ -909,7 +909,7 @@
                 setTimeout(() => {
                     thankYouMessage.classList.add('hidden');
                     document.getElementById('form-step-1').classList.remove('hidden');
-                }, 5000);
+                }, 2000);
             })
             .catch(err => {
                 document.getElementById('loader').style.display = 'none';
