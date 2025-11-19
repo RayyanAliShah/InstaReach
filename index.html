@@ -11,6 +11,7 @@
     <style>
         .font-poppins {
             font-family: 'Poppins', sans-serif;
+           
         }
         
         .font-glacial {
@@ -293,17 +294,30 @@
     </div>
 
     <!-- Header -->
-    <header class="fixed top-0 w-full bg-white shadow-md z-50">
+    <!-- <header class="fixed top-0 w-full bg-white shadow-md z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <div class="font-poppins text-2xl font-bold text-primary animate-scale-in">
-                InstaReach
+                <img src="img/Website Final Logo.png" alt="" width="250">
             </div>
-            <button onclick="handleCall()" class="flex items-center gap-2 px-6 py-3 rounded-lg font-poppins font-semibold text-white transition-all btn-primary hover-scale">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                +44 7849 390274
+            <button onclick="scrollToForm()" style="padding: 1%;" class="flex items-center gap-2 px-6 py-3 rounded-lg font-poppins font-semibold text-white transition-all btn-primary hover-scale">
+                Get free consultation
             </button>
         </div>
-    </header>
+    </header> -->
+<header class="fixed top-0 w-full bg-white shadow-md z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <div class="font-poppins text-2xl font-bold text-primary animate-scale-in">
+      <img src="img/Website Final Logo.png" alt="Logo" class="w-32 sm:w-64">
+    </div>
+    <button onclick="scrollToForm()" 
+      class="px-3 py-2 sm:px-6 sm:py-3 rounded-lg font-poppins font-semibold text-white transition-all btn-primary hover-scale text-sm sm:text-base">
+      Get free consultation
+    </button>
+  </div>
+</header>
+
+
+
 
     <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center pt-20 parallax" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600');">
@@ -333,6 +347,89 @@
         </div>
     </section>
 
+    <!-- Lead Form Section -->
+    <section id="lead-form-section" class="py-24 gradient-bg">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-poppins text-5xl md:text-6xl font-bold text-center mb-6 text-white">
+                Get Your Free Consultation
+            </h2>
+            <p class="font-glacial text-center text-white opacity-90 mb-12 text-xl">
+                Let's discuss how we can help transform your digital presence
+            </p>
+
+            <div class="bg-white rounded-3xl shadow-2xl p-10">
+                <!-- Progress Indicator -->
+                <div id="form-progress" class="flex justify-between mb-10">
+                    <div id="step-1-indicator" class="step-indicator active font-poppins text-sm md:text-base">Step 1: Contact Info</div>
+                    <div id="step-2-indicator" class="step-indicator font-poppins text-sm md:text-base">Step 2: Schedule</div>
+                 
+                </div>
+
+                <form id="lead-form">
+                    <!-- Step 1 -->
+                    <div id="form-step-1" class="form-step">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Full Name *</label>
+                                <input type="text" id="fullName" required class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
+                            </div>
+                            <div>
+                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Email *</label>
+                                <input type="email" id="email" required class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
+                            </div>
+                            <div>
+                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Phone</label>
+                                <input type="tel" id="phone" class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
+                            </div>
+                        </div>
+                        <button type="button" onclick="nextStep(1)" class="w-full mt-8 px-8 py-4 rounded-xl font-poppins font-semibold text-white text-lg transition-all btn-primary hover-scale">
+                            Next
+                        </button>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="form-step-2" class="form-step hidden">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Service Required *</label>
+                                <select id="service" required class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
+                                    <option value="">Select a service</option>
+                                    <option value="Web Development">Web Development</option>
+                                    <option value="Branding & Design">Branding & Design</option>
+                                    <option value="Both">Both Services</option>
+                                </select>
+                            </div>
+                            <div class="space-y-6">
+                            <div>
+                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Preferred Meeting Date & Time (GMT/BST)</label>
+                                <input type="datetime-local" id="meetingDate" class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
+                            </div>
+                            
+                        </div>
+                        <div class="flex gap-4 mt-8">
+                            <button type="button" onclick="prevStep(1)" class="flex-1 px-8 py-4 rounded-xl font-poppins font-semibold border-2 border-primary text-primary transition-all hover:bg-gray-50 text-lg">
+                                Previous
+                            </button>
+                            <button type="submit" class="flex-1 px-8 py-4 rounded-xl font-poppins font-semibold text-white transition-all btn-primary hover-scale text-lg">
+                                Submit 
+                            </button>
+                        </div>
+                            
+                        </div>
+                      
+                    </div>
+                </form>
+
+                <!-- Thank You Message -->
+                <div id="thank-you-message" class="hidden text-center py-16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#DC652D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    <h3 class="font-poppins text-4xl font-bold mb-4 text-primary">Thank You!</h3>
+                    <p class="font-glacial text-xl text-gray-600">We've received your request and will get back to you shortly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Services Cards Section -->
     <section class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full opacity-5">
@@ -351,9 +448,7 @@
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Web Development Card -->
                 <div class="service-card bg-white rounded-3xl p-8 shadow-2xl hover-lift fade-in">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary to-orange-400 rounded-2xl flex items-center justify-center mb-6 animate-float">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                    </div>
+                  
                     <h3 class="font-poppins text-3xl font-bold mb-4 text-gray-800">Web Development</h3>
                     <p class="font-glacial text-gray-600 mb-6">
                         Build powerful, scalable websites that drive results
@@ -380,16 +475,12 @@
                             <span>Modern tech stack (React, Node.js, etc.)</span>
                         </li>
                     </ul>
-                    <button onclick="openPortfolio('web')" class="w-full px-8 py-4 rounded-lg font-poppins font-semibold text-white btn-primary hover-scale">
-                        See Our Work
-                    </button>
+                   
                 </div>
 
                 <!-- Branding & Design Card -->
                 <div class="service-card bg-white rounded-3xl p-8 shadow-2xl hover-lift fade-in" style="animation-delay: 0.2s;">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary to-orange-400 rounded-2xl flex items-center justify-center mb-6 animate-float" style="animation-delay: 1s;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    </div>
+                    
                     <h3 class="font-poppins text-3xl font-bold mb-4 text-gray-800">Branding & Design</h3>
                     <p class="font-glacial text-gray-600 mb-6">
                         Create a memorable brand identity that stands out
@@ -416,9 +507,7 @@
                             <span>Print & packaging design</span>
                         </li>
                     </ul>
-                    <button onclick="openPortfolio('branding')" class="w-full px-8 py-4 rounded-lg font-poppins font-semibold text-white btn-primary hover-scale">
-                        See Our Work
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -582,16 +671,16 @@
                 <div class="inline-flex gap-20 px-8">
                     <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Dawn Solicitors</div>
                     <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">DIPPY'S</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Urban Design</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Saint Studios</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">BRAND 5</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">BRAND 6</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">BRAND 1</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">BRAND 2</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">BRAND 3</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">BRAND 4</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">BRAND 5</div>
-                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">BRAND 6</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Kens College</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Dawn Solicitors</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Kens School</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Dawn Solicitors</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Kid City School</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">DIPPY'S</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Kens College</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Dawn Solicitors</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">Kid City School</div>
+                    <div class="text-5xl font-bold text-gray-300 hover:text-primary transition-colors">DIPPY'S</div>
                 </div>
             </div>
         </div>
@@ -631,116 +720,7 @@
         </div>
     </section>
 
-    <!-- Lead Form Section -->
-    <section id="lead-form-section" class="py-24 gradient-bg">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="font-poppins text-5xl md:text-6xl font-bold text-center mb-6 text-white">
-                Get Your Free Consultation
-            </h2>
-            <p class="font-glacial text-center text-white opacity-90 mb-12 text-xl">
-                Let's discuss how we can help transform your digital presence
-            </p>
-
-            <div class="bg-white rounded-3xl shadow-2xl p-10">
-                <!-- Progress Indicator -->
-                <div id="form-progress" class="flex justify-between mb-10">
-                    <div id="step-1-indicator" class="step-indicator active font-poppins text-sm md:text-base">Step 1: Contact Info</div>
-                    <div id="step-2-indicator" class="step-indicator font-poppins text-sm md:text-base">Step 2: Project Details</div>
-                    <div id="step-3-indicator" class="step-indicator font-poppins text-sm md:text-base">Step 3: Schedule</div>
-                </div>
-
-                <form id="lead-form">
-                    <!-- Step 1 -->
-                    <div id="form-step-1" class="form-step">
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Full Name *</label>
-                                <input type="text" id="fullName" required class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
-                            </div>
-                            <div>
-                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Email *</label>
-                                <input type="email" id="email" required class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
-                            </div>
-                            <div>
-                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Phone</label>
-                                <input type="tel" id="phone" class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
-                            </div>
-                        </div>
-                        <button type="button" onclick="nextStep(1)" class="w-full mt-8 px-8 py-4 rounded-xl font-poppins font-semibold text-white text-lg transition-all btn-primary hover-scale">
-                            Next Step →
-                        </button>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div id="form-step-2" class="form-step hidden">
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Service Required *</label>
-                                <select id="service" required class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
-                                    <option value="">Select a service</option>
-                                    <option value="Web Development">Web Development</option>
-                                    <option value="Branding & Design">Branding & Design</option>
-                                    <option value="Both">Both Services</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Budget Range *</label>
-                                <select id="budget" required class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
-                                    <option value="">Select budget</option>
-                                    <option value="Under £5,000">Under £5,000</option>
-                                    <option value="£5,000 - £10,000">£5,000 - £10,000</option>
-                                    <option value="£10,000 - £20,000">£10,000 - £20,000</option>
-                                    <option value="£20,000+">£20,000+</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Project Description</label>
-                                <textarea id="description" rows="4" class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all" placeholder="Tell us about your project..."></textarea>
-                            </div>
-                        </div>
-                        <div class="flex gap-4 mt-8">
-                            <button type="button" onclick="prevStep(2)" class="flex-1 px-8 py-4 rounded-xl font-poppins font-semibold border-2 border-primary text-primary transition-all hover:bg-gray-50 text-lg">
-                                ← Previous
-                            </button>
-                            <button type="button" onclick="nextStep(2)" class="flex-1 px-8 py-4 rounded-xl font-poppins font-semibold text-white transition-all btn-primary hover-scale text-lg">
-                                Next Step →
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div id="form-step-3" class="form-step hidden">
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block font-poppins font-semibold mb-2 text-gray-700">Preferred Meeting Date & Time</label>
-                                <input type="datetime-local" id="meetingDate" class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
-                            </div>
-                            <div class="bg-orange-50 border-2 border-primary p-6 rounded-xl">
-                                <p class="font-glacial text-gray-700 leading-relaxed">
-                                    <strong class="text-primary">Note:</strong> Please schedule your meeting within the next 3 days for the earliest availability. All times will be converted to UK time (GMT/BST).
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4 mt-8">
-                            <button type="button" onclick="prevStep(3)" class="flex-1 px-8 py-4 rounded-xl font-poppins font-semibold border-2 border-primary text-primary transition-all hover:bg-gray-50 text-lg">
-                                ← Previous
-                            </button>
-                            <button type="submit" class="flex-1 px-8 py-4 rounded-xl font-poppins font-semibold text-white transition-all btn-primary hover-scale text-lg">
-                                Submit 🚀
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- Thank You Message -->
-                <div id="thank-you-message" class="hidden text-center py-16">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#DC652D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    <h3 class="font-poppins text-4xl font-bold mb-4 text-primary">Thank You!</h3>
-                    <p class="font-glacial text-xl text-gray-600">We've received your request and will get back to you shortly.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Footer -->
     <footer class="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-16">
@@ -768,15 +748,15 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 pt-8 text-center font-glacial text-gray-400">
-                <p>&copy; 2024 InstaReach. All rights reserved. Made with ❤️ in Birmingham</p>
+                <p>&copy; 2025 InstaReach. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Sticky CTA Button -->
-    <button onclick="scrollToForm()" class="fixed bottom-8 right-8 px-8 py-5 rounded-full font-poppins font-semibold text-white shadow-2xl transition-all hover:scale-110 btn-primary z-40 text-lg">
+    <!-- <button onclick="scrollToForm()" class="fixed bottom-8 right-8 px-8 py-5 rounded-full font-poppins font-semibold text-white shadow-2xl transition-all hover:scale-110 btn-primary z-40 text-lg">
         🚀 Get Free Consultancy
-    </button>
+    </button> -->
 
     <script>
         let currentStep = 1;
@@ -801,8 +781,8 @@
                 alert('Please fill Name & Email');
                 return;
             }
-            if (step === 2 && (!document.getElementById('service').value || !document.getElementById('budget').value)) {
-                alert('Please select service and budget');
+            if (step === 2 && (!document.getElementById('service').value )) {
+                alert('Please select service');
                 return;
             }
             document.getElementById(`form-step-${step}`).classList.add('hidden');
@@ -876,8 +856,6 @@
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 service: document.getElementById('service').value,
-                budget: document.getElementById('budget').value,
-                description: document.getElementById('description').value,
                 meetingDate: meetingDateValue,
                 meetingDateUK: meetingDateUK,
                 userTimezone: userTimezone
@@ -889,28 +867,62 @@
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: new URLSearchParams(data).toString()
             })
-            .then(() => {
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('form-step-3').classList.add('hidden');
-                const thankYouMessage = document.getElementById('thank-you-message');
-                thankYouMessage.classList.remove('hidden');
-                thankYouMessage.classList.add('opacity-0');
+            // .then(() => {
+            //     document.getElementById('loader').style.display = 'none';
+            //     document.getElementById('form-step-3').classList.add('hidden');
+            //     const thankYouMessage = document.getElementById('thank-you-message');
+            //     thankYouMessage.classList.remove('hidden');
+            //     thankYouMessage.classList.add('opacity-0');
                 
-                setTimeout(() => {
-                    thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
-                }, 50);
+            //     setTimeout(() => {
+            //         thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
+            //     }, 50);
                 
-                // Reset form
-                document.getElementById('lead-form').reset();
-                currentStep = 1;
-                updateProgress(1);
+            //     // Reset form
+            //     document.getElementById('lead-form').reset();
+            //     currentStep = 1;
+            //     updateProgress(1);
                 
-                // Hide thank you message and show form after 5 seconds
-                setTimeout(() => {
-                    thankYouMessage.classList.add('hidden');
-                    document.getElementById('form-step-1').classList.remove('hidden');
-                }, 2000);
-            })
+            //     // Hide thank you message and show form after 5 seconds
+            //     setTimeout(() => {
+            //         thankYouMessage.classList.add('hidden');
+            //         document.getElementById('form-step-1').classList.remove('hidden');
+            //     }, 2000);
+            // })
+               .then(() => {
+    document.getElementById('loader').style.display = 'none';
+
+    const thankYouMessage = document.getElementById('thank-you-message');
+    thankYouMessage.classList.remove('hidden');
+    thankYouMessage.classList.add('opacity-0');
+
+    setTimeout(() => {
+        thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
+    }, 50);
+
+    // Reset form
+    document.getElementById('lead-form').reset();
+    currentStep = 1;
+    updateProgress(1);
+
+    // Hide all steps except step 1
+const steps = document.querySelectorAll('[id^="form-step-"]');
+steps.forEach((step, index) => {
+    if (index === 0) {
+        step.classList.remove('hidden'); // show step 1
+    } else {
+        step.classList.add('hidden'); // hide step 2 (and any others)
+    }
+});
+
+    // Hide thank you message and show form after 2 seconds
+    // setTimeout(() => {
+    //     thankYouMessage.classList.add('hidden');
+    //     document.getElementById('form-step-1').classList.remove('hidden');
+    // }, 2000);
+})
+
+
             .catch(err => {
                 document.getElementById('loader').style.display = 'none';
                 alert("Submission failed. Please try again.");
@@ -918,14 +930,8 @@
             });
         });
 
-        // Portfolio functions
-        function openPortfolio(type) {
-            if (type === 'web') {
-                window.open('Web_Dev.html', '_blank');
-            } else if (type === 'branding') {
-                window.open('branding.html', '_blank');
-            }
-        }
+        
+        
 
         // Intersection Observer for fade-in animations
         const observerOptions = {
