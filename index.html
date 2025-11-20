@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <style>
         .font-poppins {
             font-family: 'Poppins', sans-serif;
@@ -400,10 +403,17 @@
                                 </select>
                             </div>
                             <div class="space-y-6">
-                            <div>
+                            <!-- <div>
                                 <label class="block font-poppins font-semibold mb-2 text-gray-700">Preferred Meeting Date & Time (GMT/BST)</label>
                                 <input type="datetime-local" id="meetingDate" class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
-                            </div>
+                            </div> -->
+<div>
+  <label class="block font-poppins font-semibold mb-2 text-gray-700">
+    Preferred Meeting Date & Time (GMT/BST)
+  </label>
+  <input type="datetime-local" id="meetingDate"
+    class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-lg transition-all">
+</div>
                             
                         </div>
                         <div class="flex gap-4 mt-8">
@@ -759,198 +769,646 @@
     </button> -->
 
     <script>
-        let currentStep = 1;
+//         let currentStep = 1;
 
-        function handleCall() {
-            window.location.href = 'tel:+447849390274';
-        }
+//         function handleCall() {
+//             window.location.href = 'tel:+447849390274';
+//         }
 
-        function scrollToForm() {
-            document.getElementById('lead-form-section').scrollIntoView({ behavior: 'smooth' });
-        }
+//         function scrollToForm() {
+//             document.getElementById('lead-form-section').scrollIntoView({ behavior: 'smooth' });
+//         }
 
-        function updateProgress(step) {
-            document.querySelectorAll('.step-indicator').forEach(el => {
-                el.classList.remove('active');
-            });
-            document.getElementById(`step-${step}-indicator`).classList.add('active');
-        }
+//         function updateProgress(step) {
+//             document.querySelectorAll('.step-indicator').forEach(el => {
+//                 el.classList.remove('active');
+//             });
+//             document.getElementById(`step-${step}-indicator`).classList.add('active');
+//         }
 
-        function nextStep(step) {
-            if (step === 1 && (!document.getElementById('fullName').value || !document.getElementById('email').value)) {
-                alert('Please fill Name & Email');
-                return;
-            }
-            if (step === 2 && (!document.getElementById('service').value )) {
-                alert('Please select service');
-                return;
-            }
-            document.getElementById(`form-step-${step}`).classList.add('hidden');
-            currentStep = step + 1;
-            document.getElementById(`form-step-${currentStep}`).classList.remove('hidden');
-            updateProgress(currentStep);
-        }
+//         // function nextStep(step) {
+//         //     if (step === 1 && (!document.getElementById('fullName').value || !document.getElementById('email').value)) {
+//         //         alert('Please fill Name & Email');
+//         //         return;
+//         //     }
+//         //     if (step === 2 && (!document.getElementById('service').value )) {
+//         //         alert('Please select service');
+//         //         return;
+//         //     }
+//         //     document.getElementById(`form-step-${step}`).classList.add('hidden');
+//         //     currentStep = step + 1;
+//         //     document.getElementById(`form-step-${currentStep}`).classList.remove('hidden');
+//         //     updateProgress(currentStep);
+//         // }
 
-        function prevStep(step) {
-            document.getElementById(`form-step-${step}`).classList.add('hidden');
-            currentStep = step - 1;
-            document.getElementById(`form-step-${currentStep}`).classList.remove('hidden');
-            updateProgress(currentStep);
-        }
+//        function nextStep(step) {
+//     if (step === 1) {
+//         const fullName = document.getElementById('fullName').value;
+//         const email = document.getElementById('email').value;
+//         const phone = document.getElementById('phone').value;
 
-        function closeModal() {
-            document.getElementById('dateModal').classList.remove('show');
-        }
+//         if (!fullName || !email) {
+//             alert('Please fill Name & Email');
+//             return;
+//         }
 
-        function validateMeetingDate(dateString) {
-            if (!dateString) return true; // Allow empty date
+//         // Save basic info silently
+//         const data = {
+//             fullName: fullName,
+//             email: email,
+//             phone: phone,
+//             status: "partial" // mark as partial submission
+//         };
+
+//         fetch("https://script.google.com/macros/s/AKfycbxPTT43V0fs9iWy0exVXNe83X9jx-1SMFjh_Auaji8QBYn3wfsmnxreABnqJALSRiimzw/exec", {
+//             method: "POST",
+//             mode: "no-cors",
+//             headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//             body: new URLSearchParams(data).toString()
+//         }).catch(err => console.error("Step 1 save failed", err));
+//     }
+
+//     // Normal step switching
+//     document.getElementById(`form-step-${step}`).classList.add('hidden');
+//     currentStep = step + 1;
+//     document.getElementById(`form-step-${currentStep}`).classList.remove('hidden');
+//     updateProgress(currentStep);
+// }
+
+
+
+
+
+
+
+//         function prevStep(step) {
+//             document.getElementById(`form-step-${step}`).classList.add('hidden');
+//             currentStep = step - 1;
+//             document.getElementById(`form-step-${currentStep}`).classList.remove('hidden');
+//             updateProgress(currentStep);
+//         }
+
+//         function closeModal() {
+//             // document.getElementById('dateModal').classList.remove('show');
+//         }
+
+
+//         // Pop Up message
+
+//         // function validateMeetingDate(dateString) {
+//         //     if (!dateString) return true; // Allow empty date
             
-            const selectedDate = new Date(dateString);
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+//         //     const selectedDate = new Date(dateString);
+//         //     const today = new Date();
+//         //     today.setHours(0, 0, 0, 0);
             
-            const threeDaysFromNow = new Date(today);
-            threeDaysFromNow.setDate(today.getDate() + 3);
-            threeDaysFromNow.setHours(23, 59, 59, 999);
+//         //     const threeDaysFromNow = new Date(today);
+//         //     threeDaysFromNow.setDate(today.getDate() + 3);
+//         //     threeDaysFromNow.setHours(23, 59, 59, 999);
             
-            if (selectedDate > threeDaysFromNow) {
-                document.getElementById('dateModal').classList.add('show');
-                document.getElementById('meetingDate').value = '';
-                return false;
-            }
-            return true;
-        }
+//         //     if (selectedDate > threeDaysFromNow) {
+//         //         document.getElementById('dateModal').classList.add('show');
+//         //         document.getElementById('meetingDate').value = '';
+//         //         return false;
+//         //     }
+//         //     return true;
+//         // }
 
-        // Add event listener to meeting date input
-        document.addEventListener('DOMContentLoaded', function() {
-            const meetingDateInput = document.getElementById('meetingDate');
-            if (meetingDateInput) {
-                meetingDateInput.addEventListener('change', function(e) {
-                    validateMeetingDate(e.target.value);
-                });
-            }
-        });
+//         // Add event listener to meeting date input
+//         // document.addEventListener('DOMContentLoaded', function() {
+//         //     const meetingDateInput = document.getElementById('meetingDate');
+//         //     if (meetingDateInput) {
+//         //         meetingDateInput.addEventListener('change', function(e) {
+//         //             validateMeetingDate(e.target.value);
+//         //         });
+//         //     }
+//         // });
 
-        document.getElementById('lead-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+//    document.addEventListener('DOMContentLoaded', function () {
+//     const meetingDateInput = document.getElementById('meetingDate');
+
+//     if (meetingDateInput) {
+
+//         // Current UK time
+//         const now = new Date();
+//         const ukNow = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+
+//         // Exact min date in UK
+//         const ukMin = new Date(ukNow);
+//         ukMin.setSeconds(0, 0);
+
+//         // Max date (7 days ahead)
+//         const ukMax = new Date(ukNow);
+//         ukMax.setDate(ukNow.getDate() + 7);
+//         ukMax.setHours(23, 59, 0, 0);
+
+//         // Format datetime-local
+//         const formatDateTime = (date) => {
+//             const year = date.getFullYear();
+//             const month = String(date.getMonth() + 1).padStart(2, '0');
+//             const day = String(date.getDate()).padStart(2, '0');
+//             const hours = String(date.getHours()).padStart(2, '0');
+//             const minutes = String(date.getMinutes()).padStart(2, '0');
+//             return `${year}-${month}-${day}T${hours}:${minutes}`;
+//         };
+
+//         // Apply constraints
+//         meetingDateInput.min = formatDateTime(ukMin);
+//         meetingDateInput.max = formatDateTime(ukMax);
+
+//         // Default value: today at 10 AM UK
+//         const defaultUK = new Date(ukNow);
+//         defaultUK.setHours(10, 0, 0, 0);
+//         meetingDateInput.value = formatDateTime(defaultUK);
+
+//         // Live validity enforcement
+//         meetingDateInput.addEventListener('input', function () {
+//             if (
+//                 meetingDateInput.validity.rangeOverflow ||
+//                 meetingDateInput.validity.rangeUnderflow
+//             ) {
+//                 meetingDateInput.setCustomValidity("Select a date within the next 7 days (UK time).");
+//             } else {
+//                 meetingDateInput.setCustomValidity("");
+//             }
+//         });
+//     }
+// });
+
+//         document.getElementById('lead-form').addEventListener('submit', function(e) {
+//     e.preventDefault();
+
+//     const meetingDateValue = document.getElementById('meetingDate').value;
+//     if (!validateMeetingDate(meetingDateValue)) {
+//         return;
+//     }
+
+//     document.getElementById('loader').style.display = 'flex';
+
+//     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+//     let meetingDateUK = '';
+//     if (meetingDateValue) {
+//         const meetingDate = new Date(meetingDateValue);
+//         meetingDateUK = meetingDate.toLocaleString('en-GB', { timeZone: 'Europe/London' });
+//     }
+
+//     const data = {
+//         fullName: document.getElementById('fullName').value,
+//         email: document.getElementById('email').value,
+//         phone: document.getElementById('phone').value,
+//         service: document.getElementById('service').value,
+//         meetingDate: meetingDateValue,
+//         meetingDateUK: meetingDateUK,
+//         userTimezone: userTimezone,
+//         status: "complete" // mark as complete submission
+//     };
+
+//     fetch("https://script.google.com/macros/s/AKfycbxPTT43V0fs9iWy0exVXNe83X9jx-1SMFjh_Auaji8QBYn3wfsmnxreABnqJALSRiimzw/exec", {
+//         method: "POST",
+//         mode: "no-cors",
+//         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//         body: new URLSearchParams(data).toString()
+//     })
+
+
+
+
+
+
+
+//         // document.getElementById('lead-form').addEventListener('submit', function(e) {
+//         //     e.preventDefault();
             
-            const meetingDateValue = document.getElementById('meetingDate').value;
-            if (!validateMeetingDate(meetingDateValue)) {
-                return;
-            }
+//         //     const meetingDateValue = document.getElementById('meetingDate').value;
+//         //     if (!validateMeetingDate(meetingDateValue)) {
+//         //         return;
+//         //     }
             
-            document.getElementById('loader').style.display = 'flex';
+//         //     document.getElementById('loader').style.display = 'flex';
 
-            // Get user's timezone
-            const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+//         //     // Get user's timezone
+//         //     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             
-            // Get meeting date and convert to UK time
-            let meetingDateUK = '';
-            if (meetingDateValue) {
-                const meetingDate = new Date(meetingDateValue);
-                meetingDateUK = meetingDate.toLocaleString('en-GB', { timeZone: 'Europe/London' });
-            }
+//         //     // Get meeting date and convert to UK time
+//         //     let meetingDateUK = '';
+//         //     if (meetingDateValue) {
+//         //         const meetingDate = new Date(meetingDateValue);
+//         //         meetingDateUK = meetingDate.toLocaleString('en-GB', { timeZone: 'Europe/London' });
+//         //     }
 
-            const data = {
-                fullName: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                service: document.getElementById('service').value,
-                meetingDate: meetingDateValue,
-                meetingDateUK: meetingDateUK,
-                userTimezone: userTimezone
-            };
+//         //     const data = {
+//         //         fullName: document.getElementById('fullName').value,
+//         //         email: document.getElementById('email').value,
+//         //         phone: document.getElementById('phone').value,
+//         //         service: document.getElementById('service').value,
+//         //         meetingDate: meetingDateValue,
+//         //         meetingDateUK: meetingDateUK,
+//         //         userTimezone: userTimezone
+//         //     };
 
-            fetch("https://script.google.com/macros/s/AKfycbxPTT43V0fs9iWy0exVXNe83X9jx-1SMFjh_Auaji8QBYn3wfsmnxreABnqJALSRiimzw/exec", {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(data).toString()
-            })
-            // .then(() => {
-            //     document.getElementById('loader').style.display = 'none';
-            //     document.getElementById('form-step-3').classList.add('hidden');
-            //     const thankYouMessage = document.getElementById('thank-you-message');
-            //     thankYouMessage.classList.remove('hidden');
-            //     thankYouMessage.classList.add('opacity-0');
+//         //     fetch("https://script.google.com/macros/s/AKfycbxPTT43V0fs9iWy0exVXNe83X9jx-1SMFjh_Auaji8QBYn3wfsmnxreABnqJALSRiimzw/exec", {
+//         //         method: "POST",
+//         //         mode: "no-cors",
+//         //         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//         //         body: new URLSearchParams(data).toString()
+//         //     })
+
+
+
+//             // .then(() => {
+//             //     document.getElementById('loader').style.display = 'none';
+//             //     document.getElementById('form-step-3').classList.add('hidden');
+//             //     const thankYouMessage = document.getElementById('thank-you-message');
+//             //     thankYouMessage.classList.remove('hidden');
+//             //     thankYouMessage.classList.add('opacity-0');
                 
-            //     setTimeout(() => {
-            //         thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
-            //     }, 50);
+//             //     setTimeout(() => {
+//             //         thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
+//             //     }, 50);
                 
-            //     // Reset form
-            //     document.getElementById('lead-form').reset();
-            //     currentStep = 1;
-            //     updateProgress(1);
+//             //     // Reset form
+//             //     document.getElementById('lead-form').reset();
+//             //     currentStep = 1;
+//             //     updateProgress(1);
                 
-            //     // Hide thank you message and show form after 5 seconds
-            //     setTimeout(() => {
-            //         thankYouMessage.classList.add('hidden');
-            //         document.getElementById('form-step-1').classList.remove('hidden');
-            //     }, 2000);
-            // })
-               .then(() => {
+//             //     // Hide thank you message and show form after 5 seconds
+//             //     setTimeout(() => {
+//             //         thankYouMessage.classList.add('hidden');
+//             //         document.getElementById('form-step-1').classList.remove('hidden');
+//             //     }, 2000);
+//             // })
+
+
+
+//                .then(() => {
+//     document.getElementById('loader').style.display = 'none';
+
+//     const thankYouMessage = document.getElementById('thank-you-message');
+//     thankYouMessage.classList.remove('hidden');
+//     thankYouMessage.classList.add('opacity-0');
+
+//     setTimeout(() => {
+//         thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
+//     }, 50);
+
+//     // Reset form
+//     document.getElementById('lead-form').reset();
+//     currentStep = 1;
+//     updateProgress(1);
+
+//     // Hide all steps except step 1
+// const steps = document.querySelectorAll('[id^="form-step-"]');
+// steps.forEach((step, index) => {
+//     if (index === 0) {
+//         step.classList.remove('hidden'); // show step 1
+//     } else {
+//         step.classList.add('hidden'); // hide step 2 (and any others)
+//     }
+// });
+
+//     // Hide thank you message and show form after 2 seconds
+//     // setTimeout(() => {
+//     //     thankYouMessage.classList.add('hidden');
+//     //     document.getElementById('form-step-1').classList.remove('hidden');
+//     // }, 2000);
+// })
+
+
+//             .catch(err => {
+//                 document.getElementById('loader').style.display = 'none';
+//                 alert("Submission failed. Please try again.");
+//                 console.error(err);
+//             });
+//         });
+
+        
+        
+
+//         // Intersection Observer for fade-in animations
+//         const observerOptions = {
+//             threshold: 0.1,
+//             rootMargin: '0px 0px -100px 0px'
+//         };
+
+//         const observer = new IntersectionObserver(function(entries) {
+//             entries.forEach(entry => {
+//                 if (entry.isIntersecting) {
+//                     entry.target.classList.add('visible');
+//                 }
+//             });
+//         }, observerOptions);
+
+//         document.addEventListener('DOMContentLoaded', function() {
+//             const fadeElements = document.querySelectorAll('.fade-in');
+//             fadeElements.forEach(el => observer.observe(el));
+//         });
+
+
+
+
+
+
+//         document.addEventListener('DOMContentLoaded', function () {
+
+//     // Current UK date and time
+//     const now = new Date();
+//     const ukNow = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+
+//     // Min = now
+//     const ukMin = new Date(ukNow);
+
+//     // Max = 7 days from now
+//     const ukMax = new Date(ukNow);
+//     ukMax.setDate(ukNow.getDate() + 7);
+
+//     // Initialize Flatpickr
+//     flatpickr("#meetingDate", {
+//         enableTime: true,
+//         dateFormat: "d/m/Y h:i K",
+//         minDate: ukMin,
+//         maxDate: ukMax,
+//         defaultDate: ukMin,
+//         time_24hr: false,
+//         disable: [
+//             function(date) {
+//                 // Disable everything outside UK 7 day window
+//                 return date < ukMin || date > ukMax;
+//             }
+//         ]
+//     });
+// });
+
+
+
+
+
+
+// let currentStep = 1;
+
+// function handleCall() {
+//     window.location.href = 'tel:+447849390274';
+// }
+
+// function scrollToForm() {
+//     document.getElementById('lead-form-section').scrollIntoView({ behavior: 'smooth' });
+// }
+
+// function updateProgress(step) {
+//     document.querySelectorAll('.step-indicator').forEach(el => {
+//         el.classList.remove('active');
+//     });
+//     document.getElementById(`step-${step}-indicator`).classList.add('active');
+// }
+
+// function nextStep(step) {
+//     if (step === 1) {
+//         const fullName = document.getElementById('fullName').value;
+//         const email = document.getElementById('email').value;
+//         const phone = document.getElementById('phone').value;
+
+//         if (!fullName || !email) {
+//             alert('Please fill Name & Email');
+//             return;
+//         }
+
+//         // Save partial info
+//         const data = { fullName, email, phone, status: "partial" };
+//         fetch("https://script.google.com/macros/s/AKfycbxPTT43V0fs9iWy0exVXNe83X9jx-1SMFjh_Auaji8QBYn3wfsmnxreABnqJALSRiimzw/exec", {
+//             method: "POST",
+//             mode: "no-cors",
+//             headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//             body: new URLSearchParams(data).toString()
+//         }).catch(err => console.error("Step 1 save failed", err));
+//     }
+
+//     document.getElementById(`form-step-${step}`).classList.add('hidden');
+//     currentStep = step + 1;
+//     document.getElementById(`form-step-${currentStep}`).classList.remove('hidden');
+//     updateProgress(currentStep);
+// }
+
+// function prevStep(step) {
+//     document.getElementById(`form-step-${step}`).classList.add('hidden');
+//     currentStep = step - 1;
+//     document.getElementById(`form-step-${currentStep}`).classList.remove('hidden');
+//     updateProgress(currentStep);
+// }
+
+// // ✅ Submit handler
+// document.getElementById('lead-form').addEventListener('submit', function(e) {
+//     e.preventDefault();
+
+//     const meetingDateValue = document.getElementById('meetingDate').value;
+//     if (!meetingDateValue) {
+//         alert("Please select a meeting date.");
+//         return;
+//     }
+
+//     document.getElementById('loader').style.display = 'flex';
+
+//     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+//     const meetingDateUK = new Date(meetingDateValue).toLocaleString('en-GB', { timeZone: 'Europe/London' });
+
+//     const data = {
+//         fullName: document.getElementById('fullName').value,
+//         email: document.getElementById('email').value,
+//         phone: document.getElementById('phone').value,
+//         service: document.getElementById('service').value,
+//         meetingDate: meetingDateValue,
+//         meetingDateUK,
+//         userTimezone,
+//         status: "complete"
+//     };
+
+//     fetch("https://script.google.com/macros/s/AKfycbxPTT43V0fs9iWy0exVXNe83X9jx-1SMFjh_Auaji8QBYn3wfsmnxreABnqJALSRiimzw/exec", {
+//         method: "POST",
+//         mode: "no-cors",
+//         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//         body: new URLSearchParams(data).toString()
+//     })
+//     .then(() => {
+//         document.getElementById('loader').style.display = 'none';
+//         const thankYouMessage = document.getElementById('thank-you-message');
+//         thankYouMessage.classList.remove('hidden');
+//         thankYouMessage.classList.add('opacity-0');
+//         setTimeout(() => {
+//             thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
+//         }, 50);
+
+//         document.getElementById('lead-form').reset();
+//         currentStep = 1;
+//         updateProgress(1);
+
+//         // Reset steps
+//         document.querySelectorAll('[id^="form-step-"]').forEach((step, index) => {
+//             if (index === 0) step.classList.remove('hidden');
+//             else step.classList.add('hidden');
+//         });
+//     })
+//     .catch(err => {
+//         document.getElementById('loader').style.display = 'none';
+//         alert("Submission failed. Please try again.");
+//         console.error(err);
+//     });
+// });
+
+// // ✅ Flatpickr initialization for UK 7-day constraint
+// document.addEventListener('DOMContentLoaded', function () {
+//     const now = new Date();
+//     const ukNow = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+//     const ukMax = new Date(ukNow);
+//     ukMax.setDate(ukNow.getDate() + 7);
+
+//     flatpickr("#meetingDate", {
+//         enableTime: true,
+//         dateFormat: "d/m/Y h:i K",
+//         minDate: ukNow,
+//         maxDate: ukMax,
+//         defaultDate: ukNow,
+//         time_24hr: false
+//     });
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let currentStep = 1;
+
+function handleCall() {
+  window.location.href = 'tel:+447849390274';
+}
+
+function scrollToForm() {
+  document.getElementById('lead-form-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function updateProgress(step) {
+  document.querySelectorAll('.step-indicator').forEach(el => {
+    el.classList.remove('active');
+  });
+  document.getElementById(`step-${step}-indicator`).classList.add('active');
+}
+
+function nextStep(step) {
+  if (step === 1) {
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+
+    if (!fullName || !email) {
+      alert('Please fill Name & Email');
+      return;
+    }
+
+    // Save partial info
+    const data = {
+      fullName,
+      email,
+      phone,
+      status: "partial"
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbxPTT43V0fs9iWy0exVXNe83X9jx-1SMFjh_Auaji8QBYn3wfsmnxreABnqJALSRiimzw/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(data).toString()
+    }).catch(err => console.error("Step 1 save failed", err));
+  }
+
+  document.getElementById(`form-step-${step}`).classList.add('hidden');
+  currentStep = step + 1;
+  document.getElementById(`form-step-${currentStep}`).classList.remove('hidden');
+  updateProgress(currentStep);
+}
+
+function prevStep(step) {
+  document.getElementById(`form-step-${step}`).classList.add('hidden');
+  currentStep = step - 1;
+  document.getElementById(`form-step-${currentStep}`).classList.remove('hidden');
+  updateProgress(currentStep);
+}
+
+document.getElementById('lead-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  document.getElementById('loader').style.display = 'flex';
+
+  const meetingDateValue = document.getElementById('meetingDate').value;
+  const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  let meetingDateUK = '';
+  if (meetingDateValue) {
+    const meetingDate = new Date(meetingDateValue);
+    meetingDateUK = meetingDate.toLocaleString('en-GB', { timeZone: 'Europe/London' });
+  }
+
+  const data = {
+    fullName: document.getElementById('fullName').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    service: document.getElementById('service').value,
+    meetingDate: meetingDateValue,
+    meetingDateUK,
+    userTimezone,
+    status: "complete"
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbxPTT43V0fs9iWy0exVXNe83X9jx-1SMFjh_Auaji8QBYn3wfsmnxreABnqJALSRiimzw/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(data).toString()
+  })
+  .then(() => {
     document.getElementById('loader').style.display = 'none';
-
+    document.getElementById('lead-form').classList.add('hidden');
     const thankYouMessage = document.getElementById('thank-you-message');
     thankYouMessage.classList.remove('hidden');
     thankYouMessage.classList.add('opacity-0');
 
     setTimeout(() => {
-        thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
+      thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
     }, 50);
 
-    // Reset form
     document.getElementById('lead-form').reset();
     currentStep = 1;
     updateProgress(1);
 
-    // Hide all steps except step 1
-const steps = document.querySelectorAll('[id^="form-step-"]');
-steps.forEach((step, index) => {
-    if (index === 0) {
-        step.classList.remove('hidden'); // show step 1
-    } else {
-        step.classList.add('hidden'); // hide step 2 (and any others)
-    }
+    // Reset steps
+    document.querySelectorAll('[id^="form-step-"]').forEach((step, index) => {
+      if (index === 0) step.classList.remove('hidden');
+      else step.classList.add('hidden');
+    });
+  })
+  .catch(err => {
+    document.getElementById('loader').style.display = 'none';
+    alert("Submission failed. Please try again.");
+    console.error(err);
+  });
 });
 
-    // Hide thank you message and show form after 2 seconds
-    // setTimeout(() => {
-    //     thankYouMessage.classList.add('hidden');
-    //     document.getElementById('form-step-1').classList.remove('hidden');
-    // }, 2000);
-})
+// Intersection Observer for fade-in animations
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+});
 
 
-            .catch(err => {
-                document.getElementById('loader').style.display = 'none';
-                alert("Submission failed. Please try again.");
-                console.error(err);
-            });
-        });
-
-        
-        
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            fadeElements.forEach(el => observer.observe(el));
-        });
     </script>
 </body>
 </html>
