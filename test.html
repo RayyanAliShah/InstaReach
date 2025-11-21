@@ -12,6 +12,340 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f5f5f7;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .calendar-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .calendar-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .calendar-header h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .calendar-header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .calendar-body {
+            padding: 20px;
+        }
+
+        .month-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .month-navigation button {
+            background: #f5f5f7;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #333;
+            transition: all 0.2s;
+        }
+
+        .month-navigation button:hover {
+            background: #e5e5e7;
+            transform: scale(1.05);
+        }
+
+        .month-navigation button:active {
+            transform: scale(0.95);
+        }
+
+        .month-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #86868b;
+            padding: 8px 0;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            border: none;
+            color: #1d1d1f;
+        }
+
+        .calendar-day.empty {
+            cursor: default;
+            visibility: hidden;
+        }
+
+        .calendar-day.disabled {
+            color: #d2d2d7;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.available:hover {
+            background: #f5f5f7;
+            transform: scale(1.05);
+        }
+
+        .calendar-day.available:active {
+            transform: scale(0.95);
+        }
+
+        .calendar-day.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            transform: scale(1.05);
+        }
+
+        .calendar-day.today {
+            position: relative;
+        }
+
+        .calendar-day.today::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 4px;
+            height: 4px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+
+        .calendar-day.selected.today::after {
+            background: white;
+        }
+
+        .selected-date-display {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f5f5f7;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .selected-date-display.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .selected-date-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-slots-section {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .time-slots-section.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .time-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            max-height: 240px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .time-slots::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .time-slots::-webkit-scrollbar-track {
+            background: #f5f5f7;
+            border-radius: 4px;
+        }
+
+        .time-slots::-webkit-scrollbar-thumb {
+            background: #d2d2d7;
+            border-radius: 4px;
+        }
+
+        .time-slot {
+            padding: 12px 8px;
+            border: 1.5px solid #e5e5e7;
+            border-radius: 10px;
+            background: white;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1d1d1f;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .time-slot:hover {
+            border-color: #667eea;
+            background: #f5f5f7;
+            transform: scale(1.02);
+        }
+
+        .time-slot:active {
+            transform: scale(0.98);
+        }
+
+        .time-slot.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            font-weight: 600;
+        }
+
+        .confirmation {
+            margin-top: 20px;
+            padding: 16px;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            border-radius: 12px;
+            display: none;
+        }
+
+        .confirmation.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .confirmation-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .confirmation-icon {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .calendar-header {
+                padding: 16px;
+            }
+
+            .calendar-header h3 {
+                font-size: 18px;
+            }
+
+            .calendar-body {
+                padding: 16px;
+            }
+
+            .calendar-day {
+                font-size: 14px;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         .font-poppins {
             font-family: 'Poppins', sans-serif;
            
@@ -285,7 +619,7 @@
         <div class="animate-spin rounded-full h-16 w-16 border-4 border-t-transparent" style="border-color: #DC652D; border-top-color: transparent;"></div>
     </div>
 
-    <!-- Date Modal -->
+    <!-- Date Modal
     <div id="dateModal" class="modal">
         <div class="modal-content">
             <h3 class="font-poppins text-2xl font-bold mb-4 text-primary">Sorry, Dates Fully Booked!</h3>
@@ -294,7 +628,7 @@
                 Got it!
             </button>
         </div>
-    </div>
+    </div> -->
 
     <!-- Header -->
     <!-- <header class="fixed top-0 w-full bg-white shadow-md z-50">
@@ -310,7 +644,7 @@
 <header class="fixed top-0 w-full bg-white shadow-md z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
     <div class="font-poppins text-2xl font-bold text-primary animate-scale-in">
-      <img src="img/Variation 3.png" alt="Logo" class="w-32 sm:w-64">
+      <img src="img/Variation 2.png" alt="Logo" class="w-32 sm:w-64">
     </div>
     <button onclick="scrollToForm()" 
       class="px-3 py-2 sm:px-6 sm:py-3 rounded-lg font-poppins font-semibold text-white transition-all btn-primary hover-scale text-sm sm:text-base">
@@ -403,13 +737,70 @@
                                 </select>
                             </div>
                            <div class="space-y-6">
-    <div>
-        <label class="block font-poppins font-semibold mb-2 text-gray-700 text-sm sm:text-base">
-            Preferred Meeting Date & Time (GMT/BST)
-        </label>
-        <input type="datetime-local" id="meetingDate"
-            class="w-full px-3 sm:px-5 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-sm sm:text-lg transition-all">
+
+                  <div class="calendar-container">
+        <div class="calendar-header">
+            <h3>Select Meeting Date & Time</h3>
+            <p>Available for the next 7 days (GMT/BST)</p>
+        </div>
+
+        <div class="calendar-body">
+            <!-- Month Navigation -->
+            <div class="month-navigation">
+                <button id="prevMonth" aria-label="Previous month">‹</button>
+                <div class="month-title" id="monthTitle"></div>
+                <button id="nextMonth" aria-label="Next month">›</button>
+            </div>
+
+            <!-- Weekdays -->
+            <div class="weekdays">
+                <div class="weekday">Sun</div>
+                <div class="weekday">Mon</div>
+                <div class="weekday">Tue</div>
+                <div class="weekday">Wed</div>
+                <div class="weekday">Thu</div>
+                <div class="weekday">Fri</div>
+                <div class="weekday">Sat</div>
+            </div>
+
+            <!-- Calendar Days -->
+            <div class="calendar-days" id="calendarDays"></div>
+
+            <!-- Selected Date Display -->
+            <div class="selected-date-display" id="selectedDateDisplay">
+                <div class="selected-date-text">
+                    📅 <span id="selectedDateText"></span>
+                </div>
+            </div>
+
+            <!-- Time Slots -->
+            <div class="time-slots-section" id="timeSlotsSection">
+                <div class="time-label">🕐 Select Time</div>
+                <div class="time-slots" id="timeSlots"></div>
+            </div>
+
+            <!-- Confirmation -->
+            <div class="confirmation" id="confirmation">
+                <div class="confirmation-icon">✓</div>
+                <div class="confirmation-text" id="confirmationText"></div>
+            </div>
+        </div>
     </div>
+
+    <!-- Hidden input for form submission -->
+    <input type="hidden" id="meetingDateTime" name="meetingDateTime" value="">
+
+
+  <!-- <div>
+  <label class="block font-poppins font-semibold mb-2 text-gray-700 text-sm sm:text-base">
+    Preferred Meeting Date & Time (GMT/BST)
+  </label>
+  <input type="datetime-local" id="meetingDateTime" name="meetingDateTime"
+    class="w-full px-3 sm:px-5 py-3 sm:py-4 border-2 border-gray-200 rounded-xl 
+           focus:border-primary focus:outline-none font-glacial text-sm sm:text-lg transition-all"
+    required>
+</div> -->
+
 </div>
                         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
     <button type="button" onclick="prevStep(2)" class="w-full sm:flex-1 px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-poppins font-semibold border-2 border-primary text-primary transition-all hover:bg-gray-50 text-base sm:text-lg">
@@ -920,6 +1311,194 @@ document.addEventListener('DOMContentLoaded', function() {
   meetingDateInput.setAttribute('min', minDateTime);
   meetingDateInput.setAttribute('max', maxDateTime);
 });
+
+
+
+
+
+
+
+
+
+
+ let currentMonth = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+        let availableDates = [];
+
+        // Time slots
+        const timeSlots = [
+            '09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM',
+            '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM',
+            '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM',
+            '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM',
+            '05:00 PM'
+        ];
+
+        // Initialize available dates (today to 7 days from now in UK time)
+        function initAvailableDates() {
+            availableDates = [];
+            const now = new Date();
+            const ukNow = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/London' }));
+            
+            for (let i = 0; i <= 7; i++) {
+                const date = new Date(ukNow);
+                date.setDate(ukNow.getDate() + i);
+                availableDates.push(date);
+            }
+        }
+
+        // Check if date is available
+        function isDateAvailable(date) {
+            return availableDates.some(availableDate => 
+                availableDate.toDateString() === date.toDateString()
+            );
+        }
+
+        // Check if date is today
+        function isToday(date) {
+            const today = new Date();
+            return date.toDateString() === today.toDateString();
+        }
+
+        // Render calendar
+        function renderCalendar() {
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+            
+            // Update month title
+            document.getElementById('monthTitle').textContent = 
+                currentMonth.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+            
+            // Get first day and days in month
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDayOfWeek = firstDay.getDay();
+            
+            const calendarDays = document.getElementById('calendarDays');
+            calendarDays.innerHTML = '';
+            
+            // Empty cells before month starts
+            for (let i = 0; i < startingDayOfWeek; i++) {
+                const emptyDay = document.createElement('button');
+                emptyDay.className = 'calendar-day empty';
+                emptyDay.disabled = true;
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            // Actual days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dayButton = document.createElement('button');
+                dayButton.className = 'calendar-day';
+                dayButton.textContent = day;
+                
+                const available = isDateAvailable(date);
+                const selected = selectedDate && date.toDateString() === selectedDate.toDateString();
+                const today = isToday(date);
+                
+                if (today) dayButton.classList.add('today');
+                
+                if (available) {
+                    dayButton.classList.add('available');
+                    if (selected) dayButton.classList.add('selected');
+                    
+                    dayButton.addEventListener('click', () => selectDate(date));
+                } else {
+                    dayButton.classList.add('disabled');
+                    dayButton.disabled = true;
+                }
+                
+                calendarDays.appendChild(dayButton);
+            }
+        }
+
+        // Select date
+        function selectDate(date) {
+            selectedDate = date;
+            selectedTime = null;
+            
+            // Update display
+            document.getElementById('selectedDateText').textContent = 
+                date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+            document.getElementById('selectedDateDisplay').classList.add('show');
+            
+            // Show time slots
+            renderTimeSlots();
+            document.getElementById('timeSlotsSection').classList.add('show');
+            
+            // Hide confirmation
+            document.getElementById('confirmation').classList.remove('show');
+            
+            // Re-render calendar to update selected state
+            renderCalendar();
+        }
+
+        // Render time slots
+        function renderTimeSlots() {
+            const timeSlotsContainer = document.getElementById('timeSlots');
+            timeSlotsContainer.innerHTML = '';
+            
+            timeSlots.forEach(time => {
+                const timeButton = document.createElement('button');
+                timeButton.className = 'time-slot';
+                timeButton.textContent = time;
+                
+                if (selectedTime === time) {
+                    timeButton.classList.add('selected');
+                }
+                
+                timeButton.addEventListener('click', () => selectTime(time));
+                timeSlotsContainer.appendChild(timeButton);
+            });
+        }
+
+        // Select time
+        function selectTime(time) {
+            selectedTime = time;
+            renderTimeSlots();
+            
+            // Show confirmation
+            const dateStr = selectedDate.toLocaleDateString('en-GB', { 
+                weekday: 'long', 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric' 
+            });
+            document.getElementById('confirmationText').textContent = 
+                `Meeting scheduled for ${dateStr} at ${time}`;
+            document.getElementById('confirmation').classList.add('show');
+            
+            // Update hidden input
+            updateHiddenInput();
+        }
+
+        // Update hidden input for form submission
+        function updateHiddenInput() {
+            if (selectedDate && selectedTime) {
+                const dateStr = selectedDate.toISOString().split('T')[0];
+                const fullDateTime = `${dateStr} ${selectedTime}`;
+                document.getElementById('meetingDateTime').value = fullDateTime;
+            }
+        }
+
+        // Month navigation
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // Initialize
+        initAvailableDates();
+        renderCalendar();
+
+
 
 
     </script>

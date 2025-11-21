@@ -12,6 +12,33 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <style>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         .font-poppins {
             font-family: 'Poppins', sans-serif;
            
@@ -277,6 +304,311 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8f9fa;
+            padding:0px;
+            min-height: 100vh;
+        }
+
+        .scheduler-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .date-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .date-card:active {
+            transform: scale(0.98);
+        }
+
+        .date-card.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
+        }
+
+        .date-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .date-icon {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .date-card.selected .date-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .date-month {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #f97316;
+            font-weight: 600;
+        }
+
+        .date-card.selected .date-month {
+            color: white;
+        }
+
+        .date-day {
+            font-size: 20px;
+            color: #1a1a1a;
+        }
+
+        .date-card.selected .date-day {
+            color: white;
+        }
+
+        .date-text {
+            flex: 1;
+        }
+
+        .date-weekday {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+
+        .date-card.selected .date-weekday {
+            color: white;
+        }
+
+        .date-full {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .date-card.selected .date-full {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .date-card.selected .check-icon {
+            background: white;
+            border-color: white;
+            color: #667eea;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .time-slot {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .time-slot:active {
+            transform: scale(0.96);
+        }
+
+        .time-slot.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .section.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .confirmation {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .confirmation.show {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .confirmation-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .confirmation-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .confirmation-text {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(249, 115, 22, 0.1);
+            color: #f97316;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .date-card.selected .badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        @media (max-width: 400px) {
+            .header h2 {
+                font-size: 20px;
+            }
+
+            .date-icon {
+                width: 44px;
+                height: 44px;
+            }
+
+            .date-day {
+                font-size: 18px;
+            }
+
+            .date-weekday {
+                font-size: 15px;
+            }
+            #thank-you-message {
+    display: none;
+}
+
+#thank-you-message:not(.hidden) {
+    display: block !important;
+}
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -285,7 +617,7 @@
         <div class="animate-spin rounded-full h-16 w-16 border-4 border-t-transparent" style="border-color: #DC652D; border-top-color: transparent;"></div>
     </div>
 
-    <!-- Date Modal -->
+    <!-- Date Modal
     <div id="dateModal" class="modal">
         <div class="modal-content">
             <h3 class="font-poppins text-2xl font-bold mb-4 text-primary">Sorry, Dates Fully Booked!</h3>
@@ -294,7 +626,7 @@
                 Got it!
             </button>
         </div>
-    </div>
+    </div> -->
 
     <!-- Header -->
     <!-- <header class="fixed top-0 w-full bg-white shadow-md z-50">
@@ -310,7 +642,7 @@
 <header class="fixed top-0 w-full bg-white shadow-md z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
     <div class="font-poppins text-2xl font-bold text-primary animate-scale-in">
-      <img src="img/Variation 3.png" alt="Logo" class="w-32 sm:w-64">
+      <img src="img/Variation 2.png" alt="Logo" class="w-32 sm:w-64">
     </div>
     <button onclick="scrollToForm()" 
       class="px-3 py-2 sm:px-6 sm:py-3 rounded-lg font-poppins font-semibold text-white transition-all btn-primary hover-scale text-sm sm:text-base">
@@ -367,6 +699,13 @@
                     <div id="step-2-indicator" class="step-indicator font-poppins text-sm md:text-base">Step 2: Schedule</div>
                  
                 </div>
+                <!-- Loader -->
+    <div id="loader" style="display: none; text-align: center; padding: 40px;">
+        <div style="border: 4px solid #f3f3f3; border-top: 4px solid #DC652D; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+        <p style="margin-top: 20px; color: #666;">Submitting your request...</p>
+    </div>
+
+
 
                 <form id="lead-form">
                     <!-- Step 1 -->
@@ -403,14 +742,44 @@
                                 </select>
                             </div>
                            <div class="space-y-6">
-    <div>
-        <label class="block font-poppins font-semibold mb-2 text-gray-700 text-sm sm:text-base">
-            Preferred Meeting Date & Time (GMT/BST)
-        </label>
-        <input type="datetime-local" id="meetingDate"
-            class="w-full px-3 sm:px-5 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:border-primary focus:outline-none font-glacial text-sm sm:text-lg transition-all">
+
+
+  <div class="scheduler-container">
+        <div class="header">
+            <h2>Schedule Your Meeting</h2>
+            <p>Pick a date and time that works for you</p>
+        </div>
+
+        <!-- Date Selection -->
+        <div class="section">
+            <div class="section-title">
+                📅 Select Date
+            </div>
+            <div class="date-list" id="dateList"></div>
+        </div>
+
+        <!-- Time Selection -->
+        <div class="section disabled" id="timeSection">
+            <div class="section-title">
+                🕐 Select Time
+            </div>
+            <div class="time-grid" id="timeGrid"></div>
+        </div>
+
+        <!-- Confirmation -->
+        <div class="confirmation" id="confirmation">
+            <div class="confirmation-icon">✓</div>
+            <div class="confirmation-title">Booking Confirmed!</div>
+            <div class="confirmation-text" id="confirmationText"></div>
+        </div>
     </div>
-</div>
+
+    <!-- Hidden input for form submission -->
+    <input type="hidden" id="meetingDateTime" name="meetingDateTime" value="">
+
+
+
+
                         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
     <button type="button" onclick="prevStep(2)" class="w-full sm:flex-1 px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-poppins font-semibold border-2 border-primary text-primary transition-all hover:bg-gray-50 text-base sm:text-lg">
         Previous
@@ -764,6 +1133,175 @@
     </button> -->
 
     <script>
+         let selectedDate = null;
+        let selectedTime = null;
+        let availableDates = [];
+
+        // Time slots
+        const timeSlots = [
+            '09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM',
+            '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM',
+            '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM',
+            '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM',
+            '05:00 PM'
+        ];
+
+        // Initialize available dates (today to 7 days from now in UK time)
+        function initAvailableDates() {
+            availableDates = [];
+            const now = new Date();
+            const ukNow = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/London' }));
+            
+            for (let i = 0; i <= 7; i++) {
+                const date = new Date(ukNow);
+                date.setDate(ukNow.getDate() + i);
+                availableDates.push(date);
+            }
+        }
+
+        // Render date list
+        function renderDateList() {
+            const dateList = document.getElementById('dateList');
+            dateList.innerHTML = '';
+
+            availableDates.forEach((date, index) => {
+                const card = document.createElement('div');
+                card.className = 'date-card';
+                
+                const isToday = date.toDateString() === new Date().toDateString();
+                const isTomorrow = date.toDateString() === new Date(Date.now() + 86400000).toDateString();
+                
+                let badge = '';
+                if (isToday) badge = '<span class="badge">Today</span>';
+                else if (isTomorrow) badge = '<span class="badge">Tomorrow</span>';
+
+                card.innerHTML = `
+                    <div class="date-info">
+                        <div class="date-icon">
+                            <div class="date-month">${date.toLocaleDateString('en-GB', { month: 'short' })}</div>
+                            <div class="date-day">${date.getDate()}</div>
+                        </div>
+                        <div class="date-text">
+                            <div class="date-weekday">${date.toLocaleDateString('en-GB', { weekday: 'long' })}</div>
+                            <div class="date-full">${date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })} ${badge}</div>
+                        </div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                `;
+
+                card.addEventListener('click', () => selectDate(date, card));
+                dateList.appendChild(card);
+            });
+        }
+
+        // Select date
+        function selectDate(date, element) {
+            selectedDate = date;
+            selectedTime = null;
+
+            // Update UI
+            document.querySelectorAll('.date-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+
+            // Enable time section
+            const timeSection = document.getElementById('timeSection');
+            timeSection.classList.remove('disabled');
+            
+            // Render times
+            renderTimeSlots();
+
+            // Hide confirmation
+            document.getElementById('confirmation').classList.remove('show');
+
+            // Smooth scroll to time section
+            setTimeout(() => {
+                timeSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        // Render time slots
+        function renderTimeSlots() {
+            const timeGrid = document.getElementById('timeGrid');
+            timeGrid.innerHTML = '';
+
+            timeSlots.forEach(time => {
+                const slot = document.createElement('div');
+                slot.className = 'time-slot';
+                slot.textContent = time;
+                slot.addEventListener('click', () => selectTime(time, slot));
+                timeGrid.appendChild(slot);
+            });
+        }
+
+        // Select time
+        function selectTime(time, element) {
+            selectedTime = time;
+
+            // Update UI
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            element.classList.add('selected');
+
+            // Show confirmation
+            const dateStr = selectedDate.toLocaleDateString('en-GB', { 
+                weekday: 'long', 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric' 
+            });
+            
+            document.getElementById('confirmationText').textContent = 
+                `${dateStr} at ${time} (GMT/BST)`;
+            
+            const confirmation = document.getElementById('confirmation');
+            confirmation.classList.add('show');
+            
+            // Scroll to confirmation
+            setTimeout(() => {
+                confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+
+            // Update hidden input
+            updateHiddenInput();
+        }
+
+        // Update hidden input for form submission
+        function updateHiddenInput() {
+            if (selectedDate && selectedTime) {
+                const dateStr = selectedDate.toISOString().split('T')[0];
+                const fullDateTime = `${dateStr} ${selectedTime}`;
+                document.getElementById('meetingDateTime').value = fullDateTime;
+            }
+        }
+
+        // Initialize
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
        
 
 let currentStep = 1;
@@ -774,6 +1312,8 @@ function handleCall() {
 
 function scrollToForm() {
   document.getElementById('lead-form-section').scrollIntoView({ behavior: 'smooth' });
+  const meetingDateTime = document.getElementById('meetingDateTime').value;
+
 }
 
 function updateProgress(step) {
@@ -822,61 +1362,78 @@ function prevStep(step) {
   updateProgress(currentStep);
 }
 
+
+// Submit form
 document.getElementById('lead-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  document.getElementById('loader').style.display = 'flex';
-
-  const meetingDateValue = document.getElementById('meetingDate').value;
-  const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-  let meetingDateUK = '';
-  if (meetingDateValue) {
-    const meetingDate = new Date(meetingDateValue);
-    meetingDateUK = meetingDate.toLocaleString('en-GB', { timeZone: 'Europe/London' });
+  // Get the meeting date/time from the calendar
+  const meetingDateTimeValue = document.getElementById('meetingDateTime').value;
+  
+  // Validate that a date and time were selected
+  if (!meetingDateTimeValue) {
+    alert('Please select a meeting date and time');
+    return;
   }
+
+  // Validate service is selected
+  const serviceValue = document.getElementById('service').value;
+  if (!serviceValue) {
+    alert('Please select a service');
+    return;
+  }
+
+  const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const meetingDateUK = meetingDateTimeValue;
 
   const data = {
     fullName: document.getElementById('fullName').value,
     email: document.getElementById('email').value,
     phone: document.getElementById('phone').value,
-    service: document.getElementById('service').value,
-    meetingDate: meetingDateValue,
+    service: serviceValue,
+    meetingDate: meetingDateTimeValue,
     meetingDateUK,
     userTimezone,
     status: "complete"
   };
+
+  // Disable submit button to prevent double submission
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+  }
 
   fetch("https://script.google.com/macros/s/AKfycbxPTT43V0fs9iWy0exVXNe83X9jx-1SMFjh_Auaji8QBYn3wfsmnxreABnqJALSRiimzw/exec", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams(data).toString()
   })
+  .then(response => response.text())
   .then(() => {
-    document.getElementById('loader').style.display = 'none';
-    document.getElementById('lead-form').classList.add('hidden');
+    // Hide the entire form
+    document.getElementById('lead-form').style.display = 'none';
+    
+    // Show thank you message
     const thankYouMessage = document.getElementById('thank-you-message');
     thankYouMessage.classList.remove('hidden');
-    thankYouMessage.classList.add('opacity-0');
-
-    setTimeout(() => {
-      thankYouMessage.classList.add('transition-opacity', 'duration-700', 'opacity-100');
-    }, 50);
-
-    document.getElementById('lead-form').reset();
-    currentStep = 1;
-    updateProgress(1);
-
-    // Reset steps
-    document.querySelectorAll('[id^="form-step-"]').forEach((step, index) => {
-      if (index === 0) step.classList.remove('hidden');
-      else step.classList.add('hidden');
+    thankYouMessage.style.display = 'block';
+    
+    // Scroll to top of form section
+    document.getElementById('lead-form-section').scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start' 
     });
   })
   .catch(err => {
-    document.getElementById('loader').style.display = 'none';
+    console.error('Submission error:', err);
     alert("Submission failed. Please try again.");
-    console.error(err);
+    
+    // Re-enable submit button
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit';
+    }
   });
 });
 
@@ -891,34 +1448,9 @@ const observer = new IntersectionObserver(entries => {
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   
-  // Set date range: from today to 7 days from now (UK time)
-  const meetingDateInput = document.getElementById('meetingDate');
-  
-  // Get current date in UK timezone
-  const now = new Date();
-  const ukTimeNow = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/London' }));
-  
-  // Set minimum date (today)
-  const minYear = ukTimeNow.getFullYear();
-  const minMonth = String(ukTimeNow.getMonth() + 1).padStart(2, '0');
-  const minDay = String(ukTimeNow.getDate()).padStart(2, '0');
-  const minHours = String(ukTimeNow.getHours()).padStart(2, '0');
-  const minMinutes = String(ukTimeNow.getMinutes()).padStart(2, '0');
-  const minDateTime = `${minYear}-${minMonth}-${minDay}T${minHours}:${minMinutes}`;
-  
-  // Set maximum date (7 days from today)
-  const ukTimeMax = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/London' }));
-  ukTimeMax.setDate(ukTimeMax.getDate() + 7);
-  
-  const maxYear = ukTimeMax.getFullYear();
-  const maxMonth = String(ukTimeMax.getMonth() + 1).padStart(2, '0');
-  const maxDay = String(ukTimeMax.getDate()).padStart(2, '0');
-  const maxHours = '23';
-  const maxMinutes = '59';
-  const maxDateTime = `${maxYear}-${maxMonth}-${maxDay}T${maxHours}:${maxMinutes}`;
-  
-  meetingDateInput.setAttribute('min', minDateTime);
-  meetingDateInput.setAttribute('max', maxDateTime);
+  // Initialize calendar when page loads
+  initAvailableDates();
+  renderDateList();
 });
 
 
